@@ -68,7 +68,11 @@
         
         public function deleteUser(User $user) : void
         {
-            
+            $query = $this->db->prepare('DELETE FROM users WHEN id=:id');
+            $parameters = [
+                "id" => $user->getId()
+                ];
+                $query->execute($parameters);
         }
         
     }
