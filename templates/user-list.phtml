@@ -24,6 +24,7 @@
     </tr>
     </thead>
     <tbody>
+    <?php foreach($users as $user) { ?>
         <tr>
             <td> - </td>
             <td> - </td>
@@ -34,6 +35,7 @@
                 <a href="../logic/delete-user.php?id=" class="btn btn-danger"><scan class="bi-trash-fill"></scan></a>
             </td>
         </tr>
+    <?php } ?>
     </tbody>
     <tfoot>
     <tr>
