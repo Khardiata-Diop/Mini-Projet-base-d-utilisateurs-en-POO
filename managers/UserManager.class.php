@@ -1,4 +1,5 @@
 <?php
+    require 'User.class.php';
     class UserManager
     {
         private array $users;
@@ -20,15 +21,43 @@
             );
             
         }
+        
+        public function getUsers(): array
+        {
+            return $this->users;
+        }
+        
+        public function setUsers(array $users): void
+        {
+            $this->users = $users;
+        }
         public function loadUsers() : void
         {
+            $query = $db->prepare('SELECT * FROM users');
+            $parameters = [
+                
+                ];
+            $query->execute($parameters);
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
             
+            $users=[];
+            
+            foreach($result as $item)
+            {
+                $user = new User($item["username"], $item["email"], $item["password"], $item["role"]);
+                $user->setId($item["id"]);
+                
+                $users[] = $user;
+            }
+            
+            $this->setUsers($users);
         }
-        public function saveUser() : void
+        public function saveUser(User $user) : void
         {
             
         }
-        public function deleteUser() : void
+        
+        public function deleteUser(User $user) : void
         {
             
         }
