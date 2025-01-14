@@ -54,7 +54,16 @@
         }
         public function saveUser(User $user) : void
         {
-            
+            $query = $this->db->prepare('INSERT INTO users (id, username, email, password, role, created_at) VALUES(NULL, :username, :email, :password, :role, NOW())');
+            $parameters = [
+                'username' => $user->getUsername(),
+                'email' => $user->getEmail(),
+                'password' => $password->getPassword(),
+                'role' => $role->getRole()
+                ];
+                $query->execute($parameters);
+                
+                $user->setId($this->db->lastInsertId());
         }
         
         public function deleteUser(User $user) : void
